@@ -1,0 +1,77 @@
+<h1>kyoudomeshi</h1>
+<h3>Tweet詳細</h3>
+
+<div class="tweet">
+    <p><%= @tweet.body %></p>
+    <h3><%= @tweet.body %></h3>
+    <p><%= @tweet.created_at %></p>
+
+    <% if user_signed_in? %>
+    <% if current_user.already_liked?(@tweet) %>
+        <%= link_to tweet_like_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :delete } do %>
+            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+        <% end %>
+    <% else %>
+        <%= link_to tweet_likes_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :post }  do %>
+            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+        <% end %>
+    <% end %>
+    <% else %>
+    <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+    <% end %>
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @tweet.liked_users.each do |user| %>
+    <li><%= user.email %></li>
+<% end %>
+
+<div class="comment-wrapper">
+    <p>コメント一覧</p>
+    <% @comments.each do |c| %>
+        <div>
+            <%= c.user.email unless c.user.blank? %>
+            <br>
+            <%= c.content %>
+            <div id="comment-<%= c.id %>-rating"></div>
+        </div>
+    <% end %>
+    <% if user_signed_in? %>
+        <div id="rating-form">
+            <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+                <%= f.text_area :content %>
+                <%= f.hidden_field :rate, value: 0, id: "comment_rate" %>
+                <%= button_tag type: "submit" do %>
+                    <i class="far fa-comments"></i> コメントする
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+</div>
+    
+<%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+<%= link_to "Tweet一覧に戻る", tweets_path %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const ratingForm = document.getElementById("rating-form");
+
+  if (ratingForm) {
+    new Raty(ratingForm, {
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      scoreName: "comment[rate]"
+    });
+  }
+    <% @comments.each do |c| %>
+      new Raty(document.getElementById("comment-<%= c.id %>-rating"), {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        readOnly: true,
+        score: <%= c.rate %>
+      });
+    <% end %>
+  });
+</script>
