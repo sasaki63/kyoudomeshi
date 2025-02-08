@@ -1,6 +1,6 @@
-const { environment } = require('@rails/webpacker')
+const { environment } = require('@rails/webpacker');
 
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 environment.plugins.prepend('Provide',
   new webpack.ProvidePlugin({
@@ -8,6 +8,11 @@ environment.plugins.prepend('Provide',
     jQuery: 'jquery/src/jquery',
     jquery: 'jquery/src/jquery',
   })
-)
+);
 
-module.exports = environment
+// 追加: エントリーポイントの設定
+environment.config.set('entry', {
+  application: './app/javascript/application.js'
+});
+
+module.exports = environment;

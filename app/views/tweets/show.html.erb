@@ -7,17 +7,17 @@
     <p><%= @tweet.created_at %></p>
 
     <% if user_signed_in? %>
-    <% if current_user.already_liked?(@tweet) %>
-        <%= link_to tweet_like_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :delete } do %>
-            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
+      <% if current_user.already_liked?(@tweet) %>
+          <%= link_to tweet_like_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :delete } do %>
+              <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+      <% else %>
+          <%= link_to tweet_likes_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :post }  do %>
+              <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+      <% end %>
     <% else %>
-        <%= link_to tweet_likes_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :post }  do %>
-            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
-        <% end %>
-    <% end %>
-    <% else %>
-    <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+      <i class="fas fa-heart"></i><%= @tweet.likes.count %>
     <% end %>
 </div>
 
@@ -48,30 +48,42 @@
         </div>
     <% end %>
 </div>
-    
+
 <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
 <%= link_to "Tweet一覧に戻る", tweets_path %>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-  const ratingForm = document.getElementById("rating-form");
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOMContentLoaded イベント発火");
 
-  if (ratingForm) {
-    new Raty(ratingForm, {
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      scoreName: "comment[rate]"
-    });
-  }
-    <% @comments.each do |c| %>
-      new Raty(document.getElementById("comment-<%= c.id %>-rating"), {
+    // フォームの星評価の初期化
+    const ratingForm = document.getElementById("rating-form");
+    if (ratingForm && !ratingForm.dataset.ratyInitialized) {
+      console.log("ratingForm に Raty を適用");
+      new Raty(ratingForm, {
         starOn: "<%= asset_path('star-on.png') %>",
         starOff: "<%= asset_path('star-off.png') %>",
         starHalf: "<%= asset_path('star-half.png') %>",
-        readOnly: true,
-        score: <%= c.rate %>
+        scoreName: "comment[rate]"
       });
-    <% end %>
+      ratingForm.dataset.ratyInitialized = "true"; // Raty が適用されたことを記録
+    }
+
+    // 各コメントの星評価の初期化
+    const comments = <%= raw(@comments.map { |c| { id: c.id, rate: c.rate || 0 } }.to_json) %>;
+    comments.forEach(comment => {
+      const commentRatingElement = document.getElementById(`comment-${comment.id}-rating`);
+      if (commentRatingElement && !commentRatingElement.dataset.ratyInitialized) {
+        console.log(`comment-${comment.id}-rating に Raty を適用`);
+        new Raty(commentRatingElement, {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          readOnly: true,
+          score: comment.rate
+        });
+        commentRatingElement.dataset.ratyInitialized = "true"; // Raty が適用されたことを記録
+      }
+    });
   });
 </script>

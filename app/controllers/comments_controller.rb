@@ -3,16 +3,21 @@ class CommentsController < ApplicationController
 
     def create
         tweet = Tweet.find(params[:tweet_id])
-        comment = tweet.comments.build(comment_params) #buildを使い、contentとtweet_idの二つを同時に代入
+        comment = tweet.comments.build(comment_params)
         comment.user_id = current_user.id
+      
+        # 送信されたパラメータを確認
+        Rails.logger.debug "Comment params: #{comment_params.inspect}"
+      
         if comment.save
-            flash[:success] = "コメントしました"
-            redirect_back(fallback_location: root_path) #直前のページにリダイレクト
+          flash[:success] = "コメントしました"
+          redirect_back(fallback_location: root_path)
         else
-            flash[:success] = "コメントできませんでした"
-            redirect_back(fallback_location: root_path) #直前のページにリダイレクト
+          flash[:success] = "コメントできませんでした"
+          redirect_back(fallback_location: root_path)
         end
-    end
+      end
+      
     
     private
     

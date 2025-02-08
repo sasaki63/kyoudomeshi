@@ -1,0 +1,13 @@
+.raty {
+    display: inline-block;
+  }
+  
+  .raty img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .raty img {
+    width: 20px;
+    height: 20px;
+  }
