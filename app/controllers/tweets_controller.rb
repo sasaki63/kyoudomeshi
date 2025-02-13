@@ -11,6 +11,18 @@ class TweetsController < ApplicationController
             end
             @tweets. uniq!
         end
+
+        if params[:latest]
+            @tweets = Tweet.latest
+            elsif params[:old]
+                @tweets = Tweet.old
+            elsif params[:star_count]
+                @Tweets = Tweet.star_count
+                else
+                @tweets = Tweet.all
+        end
+
+        @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(3)
     end
 
     def new

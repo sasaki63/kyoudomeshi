@@ -52,6 +52,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'i18n_generators'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -71,3 +72,4 @@ gem 'dotenv-rails'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem 'jsbundling-rails'
+gem 'kaminari'

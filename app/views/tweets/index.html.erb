@@ -5,6 +5,11 @@
 <h3>Tweet一覧</h3>
 <%= link_to "新規投稿へ", new_tweet_path %>
 
+<%= link_to '新しい順', tweets_path(latest: "true") %>
+<%= link_to '古い順', tweets_path(old: "true") %>
+<%= link_to '評価の高い順', tweets_path(star_count: "true") %>
+        
+
 <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
     <%= select_tag :tag_id,
                     options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
@@ -20,6 +25,7 @@
         <div class="tweet">
             <%= t.user.email %>
             <%= t.body %>
+            <td><%= l t.created_at %></td>
 
             <% if user_signed_in? %>
                 <% if current_user.already_liked?(t) %>
@@ -34,12 +40,13 @@
             <% else %>
                 <i class="fas fa-heart"></i><%= t.likes.count %>
         <% end %>
-        
+
         <% if t.image.attached? %>
             <%= image_tag t.image, size: '250x200'%>
         <% end %>
 
             <%= t.created_at %>
+
             <%= link_to "詳細へ", tweet_path(t.id) %> 
             <% if user_signed_in? && current_user.id == t.user_id %>
                 <%= link_to "編集する", edit_tweet_path(t.id) %>
@@ -47,6 +54,9 @@
             <% end %>
         </div>
     <% end %>
+
+    <%= page_entries_info @tweets %>
+    <%= paginate @tweets %>
     
 <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
     <% Tag.all.each do |t| %>
