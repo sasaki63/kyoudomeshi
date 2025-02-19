@@ -27,6 +27,10 @@
     <%= submit_tag '検索' %>
 <% end %>
 
+<% if user_signed_in? %>
+    <%= link_to "マイページへ", user_path(current_user.id) %>
+<% end %>
+
 <div class="tweets-container">
     <% @tweets.each do |t| %>
         <div class="tweet">

@@ -9,6 +9,10 @@ class User < ApplicationRecord
         has_many :likes, dependent: :destroy
         has_many :liked_tweets, through: :likes, source: :tweet
         has_many :comments, dependent: :destroy
+        has_many :tweets, dependent: :destroy 
+        validates :name, presence: true 
+        validates :profile, length: { maximum: 200 }
+        has_one_attached :image 
 
         def already_liked?(tweet)
           self.likes.exists?(tweet_id: tweet.id)
