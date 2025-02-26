@@ -3,14 +3,8 @@ class TweetsController < ApplicationController
 
     def index
         @tweets = Tweet.all
-        @rank_tweets = Tweet.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}
-        if params[:tag_ids]
-            @tweets = []
-            params[:tag_ids].each do |key, value|
-                @tweets += Tag. find_by(name: key).tweets if value == "1"
-            end
-            @tweets. uniq!
-        end
+        @rank_tweets = Tweet.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first(3)
+        @tweets = params[:tag_id].present? ? Tag.find(params[:tag_id]).tweets : Tweet.all
 
         if params[:latest]
             @tweets = Tweet.latest
@@ -70,8 +64,8 @@ class TweetsController < ApplicationController
     def tweet_params
         params.require(:tweet).permit(:body, :image)
         params.require(:tweet).permit(:body, :title, tag_ids: [])
-        
     end
+
     def article_params
         params.require(:article).permit(:body, tag_ids: [])
     end

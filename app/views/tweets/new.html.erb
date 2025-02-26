@@ -1,26 +1,36 @@
-<h1>kyoudomeshi</h1>
-<h3>新規Tweet</h3>
+<h1></h1>
+<h3>新規投稿</h3>
+
+<%= stylesheet_link_tag 'new', :media => "all" %>
+
 <%= form_for @tweet do |f| %>
     <div class="field">
-    <%= f.label :body %>
+    <%= f.label :投稿欄 %>
+    <br>
+
     <%= f.text_field :body, :size => 140 %>
     </div>
 
+    <br>
+
     <div class="field">
-        <%= f.label :image %>
+        <%= f.label :写真%>
         <%= f.file_field :image %>
     </div>
 
-    <div class='form-group'>
-        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-            <div class='form-check'>
-                <%= tag.label class: 'form-check-label' do %>
-                    <%= tag.check_box class: 'form-check-input' %>
-                    <%= tag.text %>
-                <% end %>
-            </div>
+    <div class="check_box">
+    <span>タグ</span>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+        <div>
+        <%= tag.label do %>
+            <%= tag.check_box %>
+            <%= tag.text %>
         <% end %>
+        </div>
+    <% end %>
     </div>
-    <%= f.submit "Tweetする" %>
+    <%= f.submit "投稿する" %>
+    <br>
+
 <% end %>
-<%= link_to "Tweet一覧に戻る", tweets_path %>
+<%= link_to "一覧に戻る", tweets_path %>
