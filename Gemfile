@@ -73,3 +73,4 @@ gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem 'jsbundling-rails'
 gem 'kaminari'
+gem "cssbundling-rails", "~> 1.4"
