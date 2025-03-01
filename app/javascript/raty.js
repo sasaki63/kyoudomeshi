@@ -116,7 +116,5 @@ var Raty = class {
     }, {});
   }
 };
-var raty_default = Raty;
-export {
-  raty_default as default
-};
+window.Raty = Raty;  // グローバルに Raty を定義
+export default Raty;
