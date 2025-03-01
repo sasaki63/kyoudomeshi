@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --format=esm --outdir=app/assets/builds --public-path=/assets --loader:.ttf=file --loader:.scss=css",
-    "build:css": "esbuild app/javascript/stylesheets/application.scss --bundle --sourcemap --loader:.scss=css --outdir=app/assets/builds --public-path=/assets",
+    "build:css": "esbuild app/javascript/stylesheets/application.scss --bundle --sourcemap --loader:.scss=css --outdir=app/assets/builds --public-path=/assets --external:/images/*",
     "start": "esbuild app/javascript/*.* --bundle --format=esm --outdir=app/assets/builds --public-path=/assets --watch"
   }
 }
