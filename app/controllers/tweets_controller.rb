@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-    before_action :authenticate_user! 
+    # before_action :authenticate_user! 
 
     def index
         @tweets = Tweet.all
@@ -63,7 +63,7 @@ class TweetsController < ApplicationController
     private
     def tweet_params
         params.require(:tweet).permit(:body, :image)
-        params.require(:tweet).permit(:body, :title, tag_ids: [])
+        params.require(:tweet).permit(:body, :quantity, :title, tag_ids: [])
     end
 
     def article_params

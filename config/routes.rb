@@ -11,11 +11,12 @@ Rails.application.routes.draw do
 
   get 'tweets/:tweet_id/likes' => 'likes#create'
   get 'tweets/:tweet_id/likes/:id' => 'likes#destroy'
-  resources :tweets
   
   resources :tweets do
     resources :likes, only: [:create, :destroy]
     resources :comments, only: [:create]
+    post 'like', on: :member
+    delete 'like', on: :member
   end
 
   # Defines the root path route ("/")

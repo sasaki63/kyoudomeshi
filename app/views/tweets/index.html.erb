@@ -1,13 +1,8 @@
 <h1></h1>
-<%= link_to "ログイン", tweets_path %>
-<%= link_to "新規登録", new_user_registration_path %>
-<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %> 
-<h3>一覧</h3>
 
-<%= link_to '新しい順', tweets_path(latest: "true") %>
-<%= link_to '古い順', tweets_path(old: "true") %>
+<%= link_to '新しい順', tweets_path(latest: "true") %> |
+<%= link_to '古い順', tweets_path(old: "true") %> |
 <%= link_to '評価の高い順', tweets_path(star_count: "true") %>
-        
 
 <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
     <%= select_tag :tag_id,
@@ -19,52 +14,62 @@
     %>
 <% end %>
 
-<% if user_signed_in? %>
-    <%= link_to "マイページへ", user_path(current_user.id) %>
-<% end %>
+<%= link_to "新規投稿",new_tweet_path %></li>
 
+<!-- いいねランキング表示 -->
+<h3>いいねランキング</h3>
 <div class="tweets-container">
-    <% @tweets.each do |t| %>
+    <% @rank_tweets.each_with_index do |tweet, index| %>
+        <div class="ranking">
+            <p><%= index + 1 %>. <%= tweet.body %> - いいね数: <%= tweet.likes.count %></p>
+            <%= link_to "詳細へ", tweet_path(tweet.id) %> 
+        </div>
+    <% end %>
+</div>
+
+<!-- 投稿一覧表示 -->
+<h3>投稿一覧</h3>
+<div class="tweets-container">
+    <% @tweets.each do |tweet| %>
         <div class="tweet">
-            <%= t.user.email %>
-            <%= t.body %>
-            <td><%= l t.created_at %></td>
+            <p>投稿者: <%= tweet.user.email %></p>
+            <p><%= tweet.body %></p>
+            <p>投稿日: <%= l tweet.created_at %></p>
 
             <% if user_signed_in? %>
-                <% if current_user.already_liked?(t) %>
-                    <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), data: { turbo_method: :delete } do %>
-                        <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% if current_user.already_liked?(tweet) %>
+                    <%= link_to tweet_like_path(id: tweet.id, tweet_id: tweet.id), data: { turbo_method: :delete } do %>
+                        <i class="fas fa-heart"></i><%= tweet.likes.count %>
                     <% end %>
                 <% else %>
-                    <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), data: { turbo_method: :post }  do %>
-                        <i class="fas fa-heart"></i><%= t.likes.count %>
+                    <%= link_to tweet_likes_path(id: tweet.id, tweet_id: tweet.id), data: { turbo_method: :post }  do %>
+                        <i class="fas fa-heart"></i><%= tweet.likes.count %>
                     <% end %>
                 <% end %>
             <% else %>
-                <i class="fas fa-heart"></i><%= t.likes.count %>
-        <% end %>
+                <i class="fas fa-heart"></i><%= tweet.likes.count %>
+            <% end %>
 
-        <% if t.image.attached? %>
-            <%= image_tag t.image, size: '250x200'%>
-        <% end %>
+            <% if tweet.image.attached? %>
+                <%= image_tag tweet.image, size: '250x200' %>
+            <% end %>
 
-        <% t.tags.each do |t| %>
-            <%= t.name %>
-        <% end %>
+            <% tweet.tags.each do |tag| %>
+                <span class="tag"><%= tag.name %></span>
+            <% end %>
 
-            <%= link_to "詳細へ", tweet_path(t.id) %> 
-            <% if user_signed_in? && current_user.id == t.user_id %>
-                <%= link_to "編集する", edit_tweet_path(t.id) %>
-                <%= button_to "削除する", tweet_path(t.id), method: :delete %>
+            <%= link_to "詳細へ", tweet_path(tweet.id) %> 
+            <% if user_signed_in? && current_user.id == tweet.user_id %>
+                <%= link_to "編集する", edit_tweet_path(tweet.id) %>
+                <%= button_to "削除する", tweet_path(tweet.id), method: :delete %>
             <% end %>
         </div>
     <% end %>
 
-    <%= page_entries_info @tweets %>
     <%= paginate @tweets %>
-
-    <% @rank_tweets.each do |t| %>
-    <% end %>
-    
-    <link rel="stylesheet" type="text/css" href="stylesheets/index.css">
+    <%= page_entries_info @tweets %>
 </div>
+
+
+<% @rank_tweets.each do |t| %>
+    <% end %>

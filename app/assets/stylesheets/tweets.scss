@@ -1,0 +1,193 @@
+.tweets-container {
+    display: flex;
+    flex-wrap: wrap; /* 投稿を複数行に分ける */
+    gap: 20px; /* 投稿間の隙間 */
+    justify-content: space-between; /* 横並びの間隔を均等に */
+}
+
+.tweet {
+    width: calc(33.33% - 20px); /* 3つ並べるために1つの幅を33.33%に設定、隙間を考慮して20px引く */
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-sizing: border-box; /* paddingとborderを幅に含める */
+}
+
+@media (max-width: 768px) {
+    .tweet {
+        width: calc(50% - 20px); /* 画面が狭くなったら2列にする */
+    }
+}
+
+@media (max-width: 480px) {
+    .tweet {
+        width: 100%; /* 小さい画面では1列にする */
+    }
+}
+
+.ranking {
+    background-color: #fafafa;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+h3 {
+    margin-top: 20px;
+}
+
+.main-box {
+    margin: 100px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.time {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-container {
+    margin: 100px auto;
+    width: 50%;
+    border: solid #d3def1;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #d3def1;
+}
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+input[type="text"] {
+    width: 95%;
+    height: 40px;
+}
+input[type="submit"] {
+    width: 200px;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+/* 親コンテナをフレックスにしてタグ検索を右端に配置 */
+.boards__searchForm {
+    display: flex;
+    justify-content: flex-end; /* 右端に配置 */
+    margin: 20px 0; /* 上下の余白を追加 */
+}
+
+/* タグ検索のセレクトボックスのスタイル（任意） */
+.boards__searchForm select {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+.raty {
+    display: inline-block;
+}
+
+.raty img {
+    width: 16px;
+    height: 16px;
+}
+
+.raty img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 基本のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+  /* フォームコンテナ */
+.form-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+  /* 入力フィールド */
+.field {
+    margin-bottom: 20px;
+}
+
+.field label {
+    font-size: 16px;
+    color: #333;
+}
+
+.field input, .field textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #21b537;  /* 緑色の枠線 */
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box; /* 幅を100%にしてもパディングを含むように調整 */
+}
+
+  /* テキストエリア（レスポンシブ対応） */
+.field textarea {
+    width: 100%;  /* 画面幅に合わせて100% */
+    max-width: 100%; /* 最大幅を100%に設定 */
+    min-height: 150px; /* 最小高さを150pxに設定 */
+    height: 10vw;  /* 高さをビューポート幅の10%に設定 */
+}
+
+  /* スマホや小さい画面では高さを増やす */
+@media screen and (max-width: 600px) {
+    .field textarea {
+      height: 20vw; /* 小さな画面の場合は高さをさらに大きくする */
+    }
+}
+
+  /* 投稿ボタン */
+.submit-container {
+    text-align: center;
+}
+
+.submit-button {
+    background-color: #21b537;  /* 緑色の背景 */
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #1a9d2d; /* ホバー時に少し暗くなる */
+}
+
+  /* 戻るリンク */
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

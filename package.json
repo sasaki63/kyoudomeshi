@@ -3,11 +3,11 @@
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.12",
     "@rails/webpacker": "5.4.4",
+    "esbuild": "^0.25.1",
     "jquery": "^3.7.1",
     "webpack-cli": "3.3.12"
   },
   "devDependencies": {
-    "esbuild": "^0.24.2",
     "sass": "^1.85.1",
     "webpack-dev-server": "3"
   },
