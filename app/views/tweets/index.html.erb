@@ -1,8 +1,20 @@
 <h1></h1>
 
+<%= link_to "新規投稿",new_tweet_path %></li>
+
+<!-- いいねランキング表示 -->
+<h3>いいねランキング</h3>
+<div class="tweets-container">
+    <% @rank_tweets.each_with_index do |tweet, index| %>
+        <div class="ranking">
+            <p><%= index + 1 %>. 料理名: <%= tweet.title %> - いいね数: <%= tweet.likes.count %></p> <!-- 料理名だけ表示 -->
+            <%= link_to "詳細へ", tweet_path(tweet.id) %> 
+        </div>
+    <% end %>
+</div>
+
 <%= link_to '新しい順', tweets_path(latest: "true") %> |
 <%= link_to '古い順', tweets_path(old: "true") %> |
-<%= link_to '評価の高い順', tweets_path(star_count: "true") %>
 
 <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
     <%= select_tag :tag_id,
@@ -14,26 +26,13 @@
     %>
 <% end %>
 
-<%= link_to "新規投稿",new_tweet_path %></li>
-
-<!-- いいねランキング表示 -->
-<h3>いいねランキング</h3>
-<div class="tweets-container">
-    <% @rank_tweets.each_with_index do |tweet, index| %>
-        <div class="ranking">
-            <p><%= index + 1 %>. <%= tweet.body %> - いいね数: <%= tweet.likes.count %></p>
-            <%= link_to "詳細へ", tweet_path(tweet.id) %> 
-        </div>
-    <% end %>
-</div>
-
 <!-- 投稿一覧表示 -->
 <h3>投稿一覧</h3>
 <div class="tweets-container">
     <% @tweets.each do |tweet| %>
         <div class="tweet">
             <p>投稿者: <%= tweet.user.email %></p>
-            <p><%= tweet.body %></p>
+            <p>料理名: <%= tweet.title %></p> <!-- レシピ名を表示 -->
             <p>投稿日: <%= l tweet.created_at %></p>
 
             <% if user_signed_in? %>

@@ -1,27 +1,39 @@
-<h1></h1>
-
-<h3>レシピを投稿しよう</h3>
 
 <%= form_for @tweet do |f| %>
 <div class="form-container">
-    <!-- 投稿欄 -->
+
+    <h3>レシピを投稿しよう</h3>
+
+    <!-- レシピ名 -->
     <div class="field">
-        <%= f.label :body, "レシピ内容" %>
+        <%= f.label :title, "レシピ名" %> <!-- レシピ名のラベル -->
         <br>
-        <%= f.text_area :body, rows: 5, cols: 50, placeholder: "レシピの説明を入力してください" %>
+        <%= f.text_field :title, placeholder: "レシピの名前を入力してください" %> <!-- レシピ名の入力欄 -->
     </div>
 
     <!-- 分量 -->
     <div class="field">
-        <%= f.label :quantity, "分量" %>
+        <%= f.label :servings, "何人分" %>
         <br>
-        <%= f.text_area :quantity, rows: 5, cols: 50, placeholder: "分量を教えてください" %>
+            <div class="servings-field">
+                <%= f.number_field :servings, placeholder: "例: 4", min: 1, class: 'servings-input' %>
+                <span class="servings-unit">人分</span>
+            </div>
     </div>
 
-    <br>
+    <!-- 材料と分量 -->
+    <div class="field">
+        <%= f.label :quantity, "材料と分量" %>
+        <br>
+        <%= f.text_area :quantity, rows: 5, cols: 50, placeholder: "例: 米 2合、鶏肉 300g" %>
+    </div>
 
-
-    <br>
+    <!-- 投稿欄 -->
+    <div class="field">
+        <%= f.label :body, "レシピ" %>
+        <br>
+        <%= f.text_area :body, rows: 5, cols: 50, placeholder: "作り方を入力してください" %>
+    </div>
 
     <!-- 写真 -->
     <div class="field">
@@ -29,7 +41,6 @@
         <%= f.file_field :image %>
     </div>
 
-    <br>
 
     <!-- タグ -->
     <div class="check_box">
@@ -47,7 +58,7 @@
     <div class="submit-container">
         <%= f.submit "投稿する", class: "submit-button" %>
     </div>
-<% end %>
+    <% end %>
 
     <%= link_to "一覧に戻る", tweets_path, class: "back-link" %>
 </div>

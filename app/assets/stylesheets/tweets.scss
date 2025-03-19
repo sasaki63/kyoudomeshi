@@ -8,7 +8,7 @@
 .tweet {
     width: calc(33.33% - 20px); /* 3つ並べるために1つの幅を33.33%に設定、隙間を考慮して20px引く */
     background-color: #f5f5f5;
-    padding: 10px;
+    padding: 40px;
     margin-bottom: 20px;
     border-radius: 5px;
     box-sizing: border-box; /* paddingとborderを幅に含める */
@@ -134,7 +134,7 @@ body {
 }
 
 .field input, .field textarea {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-top: 8px;
     border: 1px solid #21b537;  /* 緑色の枠線 */
@@ -190,4 +190,272 @@ body {
 
 .back-link:hover {
     text-decoration: underline;
+}
+
+.check_box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 150px以上で自動的に列を分ける */
+    gap: 15px; /* タグ間のスペース */
+}
+
+.tag-option {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* チェックボックスとテキスト間のスペース */
+}
+
+.tag-option input[type="checkbox"] {
+    margin: 0; /* チェックボックスの余白をなくす */
+}
+
+/* レシピ名フィールドのスタイル */
+.field input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #21b537;  /* 緑色の枠線 */
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* 幅を100%にしてもパディングを含むように調整 */
+}
+
+/* レシピ名のラベル */
+.field label[for="title"] {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block; /* ラベルをブロック要素にして、次の入力フィールドとの間隔を調整 */
+}
+
+/* Tweetの詳細 */
+.tweet-detail {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tweet-detail h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #444;
+}
+
+.tweet-detail p {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.tweet-detail .tag {
+    display: inline-block;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* いいねボタン */
+.tweet-detail .fa-heart {
+    color: red;
+    margin-right: 5px;
+}
+
+.tweet-detail .fa-heart:hover {
+    cursor: pointer;
+}
+
+/* いいねしたユーザー */
+.liked-users {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.liked-users ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.liked-users li {
+    padding: 5px 0;
+}
+
+/* コメントセクション */
+.comment-wrapper {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-wrapper p {
+    font-size: 1.2em;
+    color: #444;
+}
+
+.comment-wrapper .comment {
+    margin-bottom: 15px;
+}
+
+.comment-wrapper .comment strong {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.comment-wrapper .comment p {
+    font-size: 1em;
+    margin: 5px 0;
+    color: #666;
+}
+
+.comment-wrapper #rating-form {
+    margin-top: 20px;
+}
+
+.comment-wrapper #rating-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.comment-wrapper #rating-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-wrapper #rating-form button:hover {
+    background-color: #0056b3;
+}
+
+/* 編集・戻るボタン */
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: black; /* ボタンの文字色を緑に */
+    text-align: center;
+    border: 2px solid #28a745; /* 緑色の枠線 */
+    border-radius: 5px;
+    margin: 10px 5px;
+    text-decoration: none; /* 下線を削除 */
+}
+
+a:hover {
+    color: white; /* ホバー時に文字色を白に */
+    background-color: #28a745; /* 背景色を緑に */
+}
+
+
+/* レスポンシブデザイン（モバイル対応） */
+@media (max-width: 768px) {
+    .tweet-detail, .liked-users, .comment-wrapper {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .comment-wrapper #rating-form textarea {
+        height: 80px;
+    }
+
+    .comment-wrapper #rating-form button {
+        width: 100%;
+    }
+
+    a {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+
+/* 何人分の入力欄 */
+.servings-field {
+    display: flex;
+    align-items: center;
+}
+
+.servings-input {
+    width: 20px; /* 幅を40pxに設定 */
+    height: 40px; /* 高さも40pxに設定して正方形に */
+    padding: 0; /* パディングを0にして余分なスペースを削除 */
+    border: 1px solid #ddd; /* ボーダーを設定 */
+    border-radius: 5px; /* 角を丸く設定 */
+    font-size: 16px; /* フォントサイズを適切に調整 */
+    text-align: center; /* 数字を中央揃え */
+}
+
+.servings-unit {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-left: 5px; /* 「人分」のテキストと数字の間にスペースを追加 */
+    writing-mode: horizontal-tb; /* 縦書きでなく横書きにする */
+}
+
+.servings-field {
+    display: flex;
+    align-items: center;
+}
+
+.servings-input {
+    width: 80px;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.servings-unit {
+    font-size: 1rem;
+}
+
+/* アクションリンク全体のスタイル */
+.action-links {
+    display: flex; /* 横並びにリンクを配置 */
+    justify-content: space-between; /* 左右にリンクを配置 */
+    margin-top: 20px; /* 上部にマージンを追加 */
+}
+
+/* 編集リンクのスタイル */
+.edit-link {
+    color: black; /* 緑色 */
+    text-decoration: none; /* 下線を削除 */
+    font-weight: normal; /* 通常の太さ */
+    padding: 8px 12px; /* 内側のパディング */
+    border-radius: 4px; /* 角を丸く */
+    transition: background-color 0.3s ease; /* 背景色の遷移効果 */
+}
+
+/* 編集リンクのホバー時のスタイル */
+.edit-link:hover {
+    background-color: #1a9e2f; /* 濃い緑色 */
+    color: white; /* 白文字 */
+}
+
+/* 戻るリンクのスタイル */
+.back-link {
+    color: black; /* グレー */
+    text-decoration: none; /* 下線を削除 */
+    font-weight: normal; /* 通常の太さ */
+    padding: 8px 12px; /* 内側のパディング */
+    border-radius: 4px; /* 角を丸く */
+    transition: background-color 0.3s ease; /* 背景色の遷移効果 */
+}
+
+/* 戻るリンクのホバー時のスタイル */
+.back-link:hover {
+    background-color: #1a9e2f; /* 濃い緑色 */
+    color: white; /* 白文字 */
 }

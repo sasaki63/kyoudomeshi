@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-    # before_action :authenticate_user! 
+    before_action :authenticate_user! 
 
     def index
         @tweets = Tweet.all
@@ -7,13 +7,13 @@ class TweetsController < ApplicationController
         @tweets = params[:tag_id].present? ? Tag.find(params[:tag_id]).tweets : Tweet.all
 
         if params[:latest]
-            @tweets = Tweet.latest
+            @tweets = @tweets.latest
             elsif params[:old]
-                @tweets = Tweet.old
+                @tweets = @tweets.old
             elsif params[:star_count]
-                @Tweets = Tweet.star_count
+                @Tweets = @tweets.star_count
                 else
-                @tweets = Tweet.all
+                @tweets = @tweets.all
         end
 
         @tweets = Kaminari.paginate_array(@tweets).page(params[:page]).per(3)
@@ -42,7 +42,7 @@ class TweetsController < ApplicationController
     end
 
     def edit
-        @tweet = Tweet.find(params[:id])
+        @tweets = Tweet.find(params[:id])
     end
 
     def update
@@ -63,7 +63,7 @@ class TweetsController < ApplicationController
     private
     def tweet_params
         params.require(:tweet).permit(:body, :image)
-        params.require(:tweet).permit(:body, :quantity, :title, tag_ids: [])
+        params.require(:tweet).permit(:title, :servings, :quantities, :body, :image, tag_ids: [])
     end
 
     def article_params

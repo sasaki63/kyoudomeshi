@@ -48,3 +48,22 @@
     cursor: pointer;
     background: linear-gradient(to bottom,#1C94EA,#5ba2f4f3);
 } 
+
+.field input[type="checkbox"] {
+    margin-right: 10px; /* Adjust space between checkbox and label */
+    vertical-align: middle; /* Align checkbox with label text */
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the label and checkbox */
+}
+
+.field .remember-me {
+    display: inline-flex;
+    align-items: center; /* Align checkbox and label text */
+    margin-top: 10px; /* Optional: Add space between fields */
+    font-weight: 100;
+    font-size: 15px;
+}

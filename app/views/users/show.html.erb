@@ -1,26 +1,53 @@
-<h1>users#show</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<h1><%= @user.name %>さんのマイページ</h1>
 
-<% if current_user.id == @user.id %>
-    <%= link_to "編集する", edit_user_registration_path %>
+<!-- ユーザーの基本情報 -->
+<div class="user-info">
+    <p><strong>名前:</strong> <%= @user.name %></p>
+    <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+    <p><strong>プロフィール:</strong> <%= @user.profile %></p>
+
+    <!-- ログイン中のユーザーが自分の情報を編集できるリンク -->
+    <% if current_user.id == @user.id %>
+        <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn-edit" %>
+    <% end %>
+</div>
+
+<% if user_signed_in? %>
+    <div class="logout-button">
+        <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+    </div>
 <% end %>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.tweets.each do |t| %>
-    <%= t.user.name %>
-    <%= t.body %>
-<% end %>
+<!-- ユーザーの投稿一覧 -->
+<div class="user-tweets">
+    <h2><%= @user.name %>さんの投稿一覧</h2>
+    <% @user.tweets.each do |tweet| %>
+        <div class="tweet-item">
+            <h3></h3>
+            <p>料理名: <%= tweet.title %></p> <!-- レシピ名を表示 -->
+            <%= link_to "詳細", tweet_path(tweet), class: "btn-detail" %>
+        </div>
+    <% end %>
+</div>
 
-<h2>ユーザーがいいねした投稿一覧</h2>
-<% @user.liked_tweets.each do |t| %>
-    <%= t.user.name %>
-    <%= t.body %>
-<% end %>
+<!-- ユーザーがいいねした投稿一覧 -->
+<div class="liked-tweets">
+    <h2><%= @user.name %>さんがいいねした投稿</h2>
+    <% @user.liked_tweets.each do |tweet| %>
+        <div class="tweet-item">
+            <h3></h3>
+            <p>料理名: <%= tweet.title %></p> <!-- レシピ名を表示 -->
+            <%= link_to "詳細", tweet_path(tweet), class: "btn-detail" %>
+        </div>
+    <% end %>
+</div>
 
+<!-- プロフィール画像 -->
 <% if @user.image.attached? %>
-    <%= image_tag  @user.image, size: '250x200'%>
+    <div class="user-image">
+        <%= image_tag @user.image, size: '250x200' %>
+    </div>
 <% end %>
 
-<%= link_to "Tweet一覧に戻る", tweets_path %>
+<!-- 戻るリンク -->
+<%= link_to "Tweet一覧に戻る", tweets_path, class: "btn-back" %>

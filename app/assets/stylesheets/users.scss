@@ -1,0 +1,125 @@
+/* ヘッダー */
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+  /* ユーザー情報セクション */
+.user-info {
+    background-color: #f4f4f9;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.user-info .btn-edit {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.user-info .btn-edit:hover {
+    background-color: #45a049;
+}
+
+  /* 投稿一覧といいねした投稿一覧 */
+.user-tweets, .liked-tweets {
+    margin-bottom: 40px;
+}
+
+.user-tweets h2, .liked-tweets h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.tweet-item {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tweet-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.tweet-item p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.tweet-item .btn-detail {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.tweet-item .btn-detail:hover {
+    color: white; /* ホバー時に文字色を白に */
+    background-color: #28a745; /* 背景色を緑に */
+}
+
+  /* プロフィール画像 */
+.user-image {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.user-image img {
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+  /* 戻るリンク */
+.btn-back {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.btn-back:hover {
+    color: white; /* ホバー時に文字色を白に */
+    background-color: #28a745;
+}
+
+  /* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .user-info, .user-tweets, .liked-tweets {
+        padding: 15px;
+    }
+
+    .tweet-item {
+        padding: 10px;
+    }
+}
+
+/* ログアウトボタン */
+.logout-button {
+    text-align: right;  /* 右寄せに設定 */
+    margin-top: 20px;
+}
+
+
