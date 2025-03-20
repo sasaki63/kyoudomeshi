@@ -7,21 +7,28 @@
         <div class="field">
             <%= f.label :title, "レシピ名" %> <!-- レシピ名 -->
             <%= f.text_field :title, placeholder: "レシピの名前を入力してください", class: "input-field" %>
-            <%= f.object.errors[:title].present? ? content_tag(:div, f.object.errors[:title].first, class: 'error-message') : '' %> <!-- エラーメッセージ -->
+        </div>
+        
+        <div class="field">
+            <%= f.label :servings, "何人分" %>
+            <br>
+            <div class="servings-field">
+                <%= f.number_field :servings, placeholder: "例: 4", min: 1, class: 'servings-input' %>
+                <span class="servings-unit">人分</span>
+            </div>
         </div>
 
-        <!-- 分量 -->
+        <!-- 材料と分量 -->
         <div class="field">
-            <%= f.label :quantity, "分量" %>
-            <%= f.text_area :quantity, rows: 5, cols: 50, placeholder: "分量を教えてください", class: "textarea-field" %>
-            <%= f.object.errors[:quantity].present? ? content_tag(:div, f.object.errors[:quantity].first, class: 'error-message') : '' %> <!-- エラーメッセージ -->
+            <%= f.label :quantity, "材料と分量" %>
+            <br>
+            <%= f.text_area :quantity, rows: 5, cols: 50, placeholder: "例: 米 2合、鶏肉 300g" %>
         </div>
 
         <!-- 作り方 -->
         <div class="field">
             <%= f.label :body, "作り方" %>
             <%= f.text_area :body, rows: 5, cols: 50, placeholder: "作り方を入力してください", class: "textarea-field" %>
-            <%= f.object.errors[:body].present? ? content_tag(:div, f.object.errors[:body].first, class: 'error-message') : '' %> <!-- エラーメッセージ -->
         </div>
 
         <!-- 写真 -->

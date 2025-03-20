@@ -438,6 +438,13 @@ a:hover {
     transition: background-color 0.3s ease; /* 背景色の遷移効果 */
 }
 
+.edit-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
 /* 編集リンクのホバー時のスタイル */
 .edit-link:hover {
     background-color: #1a9e2f; /* 濃い緑色 */

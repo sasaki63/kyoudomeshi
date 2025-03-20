@@ -42,15 +42,15 @@ class TweetsController < ApplicationController
     end
 
     def edit
-        @tweets = Tweet.find(params[:id])
+        @tweet = Tweet.find(params[:id])
     end
 
     def update
-        tweet = Tweet.find(params[:id])
-        if tweet.update(tweet_params)
-            redirect_to :action => "show", :id => tweet.id
+        @tweet = Tweet.find(params[:id])
+        if @tweet.update(tweet_params)
+            redirect_to :action => "show", :id => @tweet.id
         else
-            redirect_to :action => "new"
+            redirect_to :action => "index"
         end
     end
 
@@ -63,7 +63,7 @@ class TweetsController < ApplicationController
     private
     def tweet_params
         params.require(:tweet).permit(:body, :image)
-        params.require(:tweet).permit(:title, :servings, :quantities, :body, :image, tag_ids: [])
+        params.require(:tweet).permit(:title, :servings, :quantity, :body, :image, tag_ids: [])
     end
 
     def article_params
